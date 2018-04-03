@@ -1,0 +1,56 @@
+$border-color: #ccc;
+$week-header-height: 60px;
+$hour-segments-width: 100px;
+
+:host {
+    display: block;
+    padding: 25px;
+}
+
+.calendar {
+    display: flex;
+    width: 100%;
+    border: 1px solid $border-color;
+
+    .hour-segments {
+        flex-basis: $hour-segments-width;
+        margin-top: $week-header-height;
+    }
+
+    .body {
+        display: flex;
+        flex: 1;
+
+        > .column {
+            flex: 1;
+
+            &:not(:last-child) {
+                border-right: 1px solid $border-color;
+            }
+
+            & > *:not(:last-child) {
+                border-bottom: 1px solid $border-color;
+            }
+        }
+
+        .weekday {
+            height: $week-header-height;
+        }
+    }
+
+    .cell {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 5px;
+        min-height: 60px;
+    }
+
+    .hour-segments {
+        border-right: 1px solid $border-color;
+
+        > * {
+            border-top: 1px solid $border-color;
+        }
+    }
+}

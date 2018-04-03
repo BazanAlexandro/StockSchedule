@@ -1,3 +1,20 @@
-<p>
-  week-schedule works!
-</p>
+<div class="calendar">
+  <aside class="hour-segments">
+    <div *ngFor="let segment of hourSegments"
+      class="hour cell">
+      {{ segment }}
+    </div>
+  </aside>
+  <div class="body">
+    <div *ngFor="let day of weekDays"
+      class="column">
+      <div class="weekday cell">
+        {{ day | date: 'EEE d' }}
+      </div>
+      <div *ngFor="let segment of hourSegments"
+        class="weekday-hour cell">
+        {{ segment }}
+      </div>
+    </div>
+  </div>
+</div>
