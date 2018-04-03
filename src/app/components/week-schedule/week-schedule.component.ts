@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
+import { ShipRecord } from '../../models/ship-record';
 
 @Component({
   selector: 'app-week-schedule',
@@ -8,10 +9,34 @@ import * as moment from 'moment';
 })
 export class WeekScheduleComponent implements OnInit {
   constructor() { }
-
   // setter, set week and year
   date: Date = new Date(Date.now());
 
+  // HERE IS BUSINESS LOGIC
+
+  shipRecords: ShipRecord[] = this.getStubForShipRecords();
+
+  getStubForShipRecords(): ShipRecord[] {
+    return [
+      {
+        truckNumber: 'AAOTEST',
+        dispatchDate: moment('2018-04-04 11:00').toDate()
+      }
+    ]
+  }
+
+  getShipRecsForSegment(date: Date, hour: number): ShipRecord[] {
+    return this.shipRecords.filter(r => {
+      const shipDay = moment(r.dispatchDate).startOf('day').toDate();
+
+      const shipHour = r.dispatchDate.getHours();
+
+      return date.getTime() === shipDay.getTime() && hour == shipHour;
+    });
+  }
+
+  // CARRY OUT IT!!!
+  
   week = moment().week();
   year = moment().year();
 
@@ -29,7 +54,8 @@ export class WeekScheduleComponent implements OnInit {
       .map(d => {
         return moment().day(d)
             .year(this.year)
-            .week(this.week).toDate();
+            .week(this.week).startOf('day')
+            .toDate();
       });
   }
 

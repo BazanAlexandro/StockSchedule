@@ -19,7 +19,13 @@
       <div *ngFor="let hour of hourSegments"
         (click)="handleSegmentClick(day, hour)"
         class="weekday-hour cell">
-        <!-- {{ segment }} -->
+        
+        <mat-chip-list>
+          <mat-chip *ngFor="let rec of getShipRecsForSegment(day, hour)" 
+            color="primary" selected="true">
+            {{ rec.truckNumber }}
+          </mat-chip>
+        </mat-chip-list>
       </div>
     </div>
   </div>

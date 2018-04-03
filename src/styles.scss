@@ -1,3 +1,5 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
 html {
     font-size: 14px;
 
@@ -12,4 +14,8 @@ body {
     * {
         box-sizing: inherit;
     }
+}
+
+app-week-schedule .calendar .mat-chip {
+    padding: 3px 9px;
 }

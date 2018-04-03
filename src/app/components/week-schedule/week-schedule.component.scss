@@ -52,12 +52,21 @@ $whitish: rgba(#eee, 0.6);
     .cell {
         display: flex;
         justify-content: center;
+        flex-wrap: wrap;
         align-items: center;
+        align-content: center;
         padding: 5px;
         height: $cell-height;
     }
 
     .hour-segments {
         transform: translateY(-$cell-height/2);
+    }
+
+    .record {
+        display: inline-block;
+        box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+        padding: 3px 5px;
+        border-radius: 5px;
     }
 }
