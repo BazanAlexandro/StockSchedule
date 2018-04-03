@@ -1,6 +1,7 @@
-$border-color: #ccc;
+$border-color: rgba(#ccc, 0.8);
 $week-header-height: 60px;
-$hour-segments-width: 100px;
+$hour-segments-width: 60px;
+$cell-height: 60px;
 
 :host {
     display: block;
@@ -23,6 +24,7 @@ $hour-segments-width: 100px;
 
         > .column {
             flex: 1;
+            border-left: 1px solid $border-color;
 
             &:not(:last-child) {
                 border-right: 1px solid $border-color;
@@ -43,14 +45,10 @@ $hour-segments-width: 100px;
         justify-content: center;
         align-items: center;
         padding: 5px;
-        min-height: 60px;
+        height: $cell-height;
     }
 
     .hour-segments {
-        border-right: 1px solid $border-color;
-
-        > * {
-            border-top: 1px solid $border-color;
-        }
+        transform: translateY(-$cell-height/2);
     }
 }
