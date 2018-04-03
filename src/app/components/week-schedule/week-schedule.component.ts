@@ -9,10 +9,13 @@ import * as moment from 'moment';
 export class WeekScheduleComponent implements OnInit {
   constructor() { }
 
-  week = 12;
-  year = 2018;
+  // setter, set week and year
+  date: Date = new Date(Date.now());
 
-  weekDays = this.getDaysForWeekNumber();
+  week = moment().week();
+  year = moment().year();
+
+  weekDays = [];
 
   hourSegmentData = {
     start: 8,
@@ -41,7 +44,26 @@ export class WeekScheduleComponent implements OnInit {
     return res;
   }
 
+  nextWeek() {
+    this.week++;
+    this.updateUI();
+  }
+
+  prevWeek() {
+    this.week--;
+    this.updateUI();
+  }
+
+  handleSegmentClick(day: Date, hour: number) {
+    console.log('clicked', day, hour);
+  }
+
+  updateUI() {
+    this.weekDays = this.getDaysForWeekNumber();
+  }
+
   ngOnInit() {
+    this.updateUI();
   }
 
 }

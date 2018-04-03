@@ -1,3 +1,8 @@
+<nav>
+  <button (click)="prevWeek()"><<<</button>
+  <button (click)="nextWeek()">>>></button>
+</nav>
+
 <div class="calendar">
   <aside class="hour-segments">
     <div *ngFor="let segment of hourSegments"
@@ -11,7 +16,8 @@
       <div class="weekday cell">
         {{ day | date: 'EEE d' }}
       </div>
-      <div *ngFor="let segment of hourSegments"
+      <div *ngFor="let hour of hourSegments"
+        (click)="handleSegmentClick(day, hour)"
         class="weekday-hour cell">
         <!-- {{ segment }} -->
       </div>
