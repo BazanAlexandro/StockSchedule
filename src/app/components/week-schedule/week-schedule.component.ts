@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { ShipRecord } from '../../models/ship-record';
+import { MatDialog } from '@angular/material/dialog';
+import { RecordDialogComponent } from '../record-dialog/record-dialog.component';
 
 @Component({
   selector: 'app-week-schedule',
@@ -8,7 +10,24 @@ import { ShipRecord } from '../../models/ship-record';
   styleUrls: ['./week-schedule.component.scss']
 })
 export class WeekScheduleComponent implements OnInit {
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
+
+  openDialog(date: Date, hour: number): void {
+    let dialogRef = this.dialog.open(RecordDialogComponent, {
+      width: '450px',
+      data: { 
+        records: this.getShipRecsForSegment(date, hour), 
+        date,
+        hour
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      // this.animal = result;
+    });
+  }
+
   // setter, set week and year
   date: Date = new Date(Date.now());
 
@@ -81,7 +100,7 @@ export class WeekScheduleComponent implements OnInit {
   }
 
   handleSegmentClick(day: Date, hour: number) {
-    console.log('clicked', day, hour);
+    this.openDialog(day, hour);
   }
 
   updateUI() {

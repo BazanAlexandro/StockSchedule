@@ -1,0 +1,26 @@
+$border-color: rgba(#ccc, 0.8);
+
+:host {
+    form {
+        input {
+            margin-right: 15px;
+        }
+    }
+
+    footer {
+        display: flex;
+        justify-content: flex-end;
+        padding-top: 15px;
+        margin-top: 15px;
+        border-top: 1px solid $border-color;
+    }
+
+    .record-form-item {
+        margin-bottom: 15px;
+    }
+}
+
+.error {
+    color: red;
+    margin-top: 10px;
+}

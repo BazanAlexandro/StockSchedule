@@ -1,0 +1,37 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <ul formArrayName="recForms">
+      <li *ngFor="let rec of recForms.controls; let i=index" [formGroupName]="i"
+        class="record-form-item">
+          <input type="text" formControlName="truckNumber" />
+
+          <button (click)="removeTruck(i)"
+            type="button" mat-raised-button
+            color="accent">
+            <img src="/assets/ic_delete_forever_white_24px.svg" />
+            Remove
+          </button>
+
+          <div class="error" *ngIf="rec.invalid && (rec.dirty || rec.touched)">
+              Field is invalid
+          </div>
+      </li>
+    </ul>
+  <button *ngIf="showAddTruckBtn" (click)="addTruck($event.target.value)"
+    type="button" mat-raised-button
+    color="primary">
+    <img src="/assets/ic_library_add_white_24px.svg" />
+    Add truck
+  </button>
+
+  <footer>
+      <button type="button" mat-button>
+          Cancel
+      </button>
+      
+      <button type="submit"
+        mat-raised-button
+        color="primary">
+        Apply
+      </button>
+  </footer>
+</form>
