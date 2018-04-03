@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SchedulerMode } from './models/scheduler-mode';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,18 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+
+  mode: SchedulerMode = SchedulerMode.Week;
+  
+  get isWeekMode() {
+    return this.mode === SchedulerMode.Week;
+  }
+
+  get isDayMode() {
+    return this.mode === SchedulerMode.Day;
+  }
+
+  toggleMode() {
+    this.mode = this.isWeekMode ? SchedulerMode.Day : SchedulerMode.Week;
+  }
 }
