@@ -64,9 +64,9 @@ export class RecordDialogComponent implements OnInit {
 
   submit() {
     if (this.form.valid) {
-      // do smth
+      this.dialogRef.close(this.form.value);
     } else {
-      
+      this.recForms.controls.forEach(c => c.markAsDirty());
     }
   }
 
