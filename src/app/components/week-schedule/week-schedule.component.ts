@@ -78,13 +78,6 @@ export class WeekScheduleComponent implements OnInit {
     ]
   }
 
-  // getDataForSegment(date: Date, hour: number) {
-  //   return {
-  //     records: this.getShipRecsForSegment(date, hour),
-  //     disabled: this.isSegmentDisabled({ day: date, hour })
-  //   };
-  // }
-
   isSegmentDisabled(day, hour): boolean {
     return this.disabledSegments.some(d => d.day.getTime() === day.getTime() &&
       d.hour === hour);

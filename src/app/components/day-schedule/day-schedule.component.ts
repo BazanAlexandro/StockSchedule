@@ -7,6 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DayScheduleComponent implements OnInit {
 
+  selectedDate: Date;
+
+  get records() {
+    return [
+
+    ];
+  }
+
   constructor() { }
 
   ngOnInit() {
