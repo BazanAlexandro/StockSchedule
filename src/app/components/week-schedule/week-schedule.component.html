@@ -1,13 +1,15 @@
 <nav class="calendar-nav">
-  <button mat-raised-button
-    color="primary"
+  <h2>
+    {{ middleDate | date: 'MMMM yyyy' }}
+  </h2>
+
+  <button mat-button
     (click)="prevWeek()">
-    <img src="/assets/ic_arrow_back_white_24px.svg" />
+    <img src="/assets/ic_arrow_back_black_24px.svg" />
   </button>
-  <button mat-raised-button
-    color="primary"
+  <button mat-button
     (click)="nextWeek()">
-    <img src="/assets/ic_arrow_forward_white_24px.svg" />
+    <img src="/assets/ic_arrow_forward_black_24px.svg" />
   </button>
 </nav>
 

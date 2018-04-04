@@ -16,7 +16,6 @@ import { StubService } from '../../stub.service';
 })
 export class WeekScheduleComponent implements OnInit {
   week = moment().week();
-  year = moment().year();
 
   units: ScheduleUnit[] = this.stub.getUnits();
   calendarCells: ScheduleUnit[][];
@@ -35,6 +34,12 @@ export class WeekScheduleComponent implements OnInit {
     public stub: StubService,
     public dialog: MatDialog) { }
 
+  get middleDate(): Date {
+    if (this.weekDays) {
+      return this.weekDays[3];
+    }
+  }
+  
   openDialog(unit): void {
     const dialogRef = this.dialog.open(RecordDialogComponent, {
       width: '450px',
@@ -62,7 +67,6 @@ export class WeekScheduleComponent implements OnInit {
     return moment.weekdays()
       .map(d => {
         return moment().day(d)
-            .year(this.year)
             .week(this.week).startOf('day')
             .toDate();
       });

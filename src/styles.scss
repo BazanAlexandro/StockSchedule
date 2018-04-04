@@ -42,3 +42,8 @@ app-week-schedule .calendar .mat-chip {
         margin-right: 10px;
     }
 }
+
+mat-chip-list, 
+mat-chip {
+    pointer-events: none;
+}
