@@ -1,10 +1,4 @@
-<header>
-  Switch view mode
-
-  <button mat-raised-button 
-    color="primary"
-    (click)="toggleMode()">Toggle</button>
-</header>
+<app-view-mode-toggle [(mode)]="mode"></app-view-mode-toggle>
 
 <app-week-schedule *ngIf="isWeekMode"></app-week-schedule>
 <app-day-schedule *ngIf="isDayMode"></app-day-schedule>

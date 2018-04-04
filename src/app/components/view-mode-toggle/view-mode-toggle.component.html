@@ -1,0 +1,11 @@
+<mat-button-toggle-group #viewMode="matButtonToggleGroup"
+  [value]="mode" (change)="toggleSwitched($event)">
+  <mat-button-toggle [value]="SchedulerMode.Week"
+    title="Week view">
+    <img src="assets/ic_view_week_black_24px.svg" />
+  </mat-button-toggle>
+  <mat-button-toggle [value]="SchedulerMode.Day"
+    title="List view">
+    <img src="assets/ic_view_list_black_24px.svg" />
+  </mat-button-toggle>
+</mat-button-toggle-group>

@@ -14,6 +14,8 @@ export class AppComponent {
 
   mode: SchedulerMode = SchedulerMode.Week;
 
+  SchedulerMode = SchedulerMode;
+
   get isWeekMode() {
     return this.mode === SchedulerMode.Week;
   }

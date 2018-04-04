@@ -10,6 +10,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 import { AppComponent } from './app.component';
 import { DayScheduleComponent } from './components/day-schedule/day-schedule.component';
@@ -18,6 +19,7 @@ import { RecordDialogComponent } from './components/record-dialog/record-dialog.
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { StoreService } from './store.service';
+import { ViewModeToggleComponent } from './components/view-mode-toggle/view-mode-toggle.component';
 
 
 @NgModule({
@@ -25,7 +27,8 @@ import { StoreService } from './store.service';
     AppComponent,
     DayScheduleComponent,
     WeekScheduleComponent,
-    RecordDialogComponent
+    RecordDialogComponent,
+    ViewModeToggleComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +44,8 @@ import { StoreService } from './store.service';
     MatNativeDateModule,
     MatDividerModule,
     MatDividerModule,
-    MatListModule
+    MatListModule,
+    MatButtonToggleModule
   ],
   providers: [StoreService],
   entryComponents: [RecordDialogComponent],
