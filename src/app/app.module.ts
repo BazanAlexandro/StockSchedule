@@ -22,6 +22,7 @@ import { StoreService } from './store.service';
 import { ViewModeToggleComponent } from './components/view-mode-toggle/view-mode-toggle.component';
 import { UtilsService } from './utils.service';
 import { StubService } from './stub.service';
+import { WeekCellComponent } from './components/week-schedule/week-cell/week-cell.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { StubService } from './stub.service';
     DayScheduleComponent,
     WeekScheduleComponent,
     RecordDialogComponent,
-    ViewModeToggleComponent
+    ViewModeToggleComponent,
+    WeekCellComponent
   ],
   imports: [
     BrowserModule,

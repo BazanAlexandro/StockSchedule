@@ -24,24 +24,10 @@
       <div class="weekday cell">
         {{ day | date: 'EEE d' }}
       </div>
-      <div *ngFor="let unit of calendarCells[i]"
+      <app-week-cell *ngFor="let unit of calendarCells[i]" 
+        [unit]="unit"
         (click)="handleUnitClick(unit)"
-        class="weekday-hour cell"
-        [class.disabled]="unit.disabled">
-
-        <ng-container *ngIf="!unit.disabled; else disabledTemp">
-          <mat-chip-list>
-            <mat-chip *ngFor="let rec of unit.trucks" 
-              color="primary" selected="true">
-              {{ rec }}
-            </mat-chip>
-          </mat-chip-list>
-        </ng-container>
-
-        <ng-template #disabledTemp>
-          disabled
-        </ng-template>
-      </div>
+        class="weekday-hour cell"></app-week-cell>
     </div>
   </div>
 </div>

@@ -1,0 +1,12 @@
+<ng-container *ngIf="!unit.disabled; else disabledTemp">
+  <mat-chip-list>
+    <mat-chip *ngFor="let rec of unit.trucks" 
+      color="primary" selected="true">
+      {{ rec }}
+    </mat-chip>
+  </mat-chip-list>
+</ng-container>
+
+<ng-template #disabledTemp>
+  disabled
+</ng-template>

@@ -1,9 +1,8 @@
-$border-color: rgba(#ccc, 0.8);
+$border-color: white;
 $week-header-height: 60px;
 $hour-segments-width: 60px;
 $cell-height: 60px;
 $whitish: rgba(#eee, 0.6);
-$disabled: rgba(#ccc, 0.7);
 
 :host {
     display: block;
@@ -42,10 +41,11 @@ $disabled: rgba(#ccc, 0.7);
         }
 
         .weekday-hour {
-            transition: background-color 300ms ease-out;
+            transition: filter 300ms ease-out;
+            cursor: pointer;
 
             &:hover {
-                background-color: $whitish;
+                filter: brightness(1.2);
             }
         }
     }
@@ -69,10 +69,6 @@ $disabled: rgba(#ccc, 0.7);
         box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
         padding: 3px 5px;
         border-radius: 5px;
-    }
-
-    .disabled {
-        background-color: $disabled;
     }
 }
 
