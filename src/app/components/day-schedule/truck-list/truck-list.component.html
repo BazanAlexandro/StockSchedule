@@ -1,0 +1,10 @@
+<mat-list>
+  <ng-container *ngFor="let unit of units">
+    <ng-container *ngFor="let truck of unit.trucks">
+      <mat-list-item>
+        {{ truck }} dispatching on {{ unit.date | date: 'HH:mm' }}
+      </mat-list-item>
+      <mat-divider></mat-divider>
+    </ng-container>
+  </ng-container>
+</mat-list>

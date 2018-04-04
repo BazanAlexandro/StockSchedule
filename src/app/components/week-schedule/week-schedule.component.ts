@@ -17,7 +17,13 @@ import { StubService } from '../../stub.service';
 export class WeekScheduleComponent implements OnInit {
   week = moment().week();
 
-  units: ScheduleUnit[] = this.stub.getUnits();
+  get units(): ScheduleUnit[] {
+    return this.store.scheduleUnits;
+  }
+  set units(value: ScheduleUnit[]) {
+    this.store.scheduleUnits = value;
+  }
+
   calendarCells: ScheduleUnit[][];
 
   weekDays = [];
@@ -31,7 +37,6 @@ export class WeekScheduleComponent implements OnInit {
   
   constructor(public store: StoreService,
     public utils: UtilsService,
-    public stub: StubService,
     public dialog: MatDialog) { }
 
   get middleDate(): Date {

@@ -23,6 +23,7 @@ import { ViewModeToggleComponent } from './components/view-mode-toggle/view-mode
 import { UtilsService } from './utils.service';
 import { StubService } from './stub.service';
 import { WeekCellComponent } from './components/week-schedule/week-cell/week-cell.component';
+import { TruckListComponent } from './components/day-schedule/truck-list/truck-list.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { WeekCellComponent } from './components/week-schedule/week-cell/week-cel
     WeekScheduleComponent,
     RecordDialogComponent,
     ViewModeToggleComponent,
-    WeekCellComponent
+    WeekCellComponent,
+    TruckListComponent
   ],
   imports: [
     BrowserModule,

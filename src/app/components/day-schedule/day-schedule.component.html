@@ -1,21 +1,8 @@
-<input [(ngModel)]="selectedDate" type="hidden" [matDatepicker]="picker" placeholder="Choose a date">
-Show calendar: <mat-datepicker-toggle [for]="picker">
-  <button mat-raised-button
-    color="primary">
-    Calendar
-  </button>
-</mat-datepicker-toggle>
-<mat-datepicker #picker [touchUi]="true" [opened]="true"></mat-datepicker>
+<div class="container">
+    <mat-calendar [selected]="selectedDate"
+      (selectedChange)="changeDate($event)"></mat-calendar>  
 
-{{ selectedDate | date }}
-
-<ng-container *ngIf="selectedDate">
-  <mat-list>
-    <ng-container *ngFor="let record of records">
-      <mat-list-item>
-        {{ record.truckNumber }} dispatching on {{ record.dispatchDate | date }}
-      </mat-list-item>
-      <mat-divider></mat-divider>
-    </ng-container>
-  </mat-list>
-</ng-container>
+    <ng-container *ngIf="selectedDate">
+      <app-truck-list [units]="selectedUnits"></app-truck-list>
+    </ng-container>        
+</div>
