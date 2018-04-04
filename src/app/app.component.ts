@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { SchedulerMode } from './models/scheduler-mode';
+import { ShipRecord } from './models/ship-record';
+import * as moment from 'moment';
+import { CalendarSegment } from './models/calendar-segment';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +13,7 @@ export class AppComponent {
   title = 'app';
 
   mode: SchedulerMode = SchedulerMode.Week;
-  
+
   get isWeekMode() {
     return this.mode === SchedulerMode.Week;
   }

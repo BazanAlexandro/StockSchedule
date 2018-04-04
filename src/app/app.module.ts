@@ -17,6 +17,7 @@ import { WeekScheduleComponent } from './components/week-schedule/week-schedule.
 import { RecordDialogComponent } from './components/record-dialog/record-dialog.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
+import { StoreService } from './store.service';
 
 
 @NgModule({
@@ -42,7 +43,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatDividerModule,
     MatListModule
   ],
-  providers: [],
+  providers: [StoreService],
   entryComponents: [RecordDialogComponent],
   bootstrap: [AppComponent]
 })

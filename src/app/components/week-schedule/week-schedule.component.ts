@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import * as moment from 'moment';
 import { ShipRecord } from '../../models/ship-record';
 import { MatDialog } from '@angular/material/dialog';
 import { RecordDialogComponent } from '../record-dialog/record-dialog.component';
 import { CalendarSegment } from '../../models/calendar-segment';
+import { StoreService } from '../../store.service';
 
 @Component({
   selector: 'app-week-schedule',
@@ -11,7 +12,8 @@ import { CalendarSegment } from '../../models/calendar-segment';
   styleUrls: ['./week-schedule.component.scss']
 })
 export class WeekScheduleComponent implements OnInit {
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog,
+    public store: StoreService) { }
 
   openDialog(date: Date, hour: number): void {
     let dialogRef = this.dialog.open(RecordDialogComponent, {
@@ -47,36 +49,30 @@ export class WeekScheduleComponent implements OnInit {
         hour
       });
     } else {
+      // this.disabledSegments = this.disabledSegments.filter(s => s.day.getTime() !== segmentDate.getTime() ||
+      //   s.hour !== hour);
+      
       this.shipRecords = [...this.shipRecords, ...records];
     }
   }
 
-  // setter, set week and year
-  date: Date = new Date(Date.now());
+  get shipRecords(): ShipRecord[] {
+    return this.store.shipRecords;
+  };
 
-  // HERE IS BUSINESS LOGIC
+  set shipRecords(value: ShipRecord[]) {
+    this.store.shipRecords = value;
+  }
 
-  shipRecords: ShipRecord[] = this.getStubForShipRecords();
-
-  disabledSegments: CalendarSegment[] = this.getStubForDisabledSegments();
+  disabledSegments: CalendarSegment[] = this.getStubForDisabledSegments();  
 
   getStubForDisabledSegments(): CalendarSegment[] {
     return [
-      {
+    {
         day: moment().startOf('day').toDate(),
         hour: 16
-      }
-    ]
-  }
-
-  getStubForShipRecords(): ShipRecord[] {
-    return [
-      {
-        truckNumber: 'AAOTEST',
-        dispatchDate: moment('2018-04-04 11:00').toDate()
-      }
-    ]
-  }
+    }]
+  };
 
   isSegmentDisabled(day, hour): boolean {
     return this.disabledSegments.some(d => d.day.getTime() === day.getTime() &&
