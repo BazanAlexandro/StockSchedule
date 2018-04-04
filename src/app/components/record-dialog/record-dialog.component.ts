@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ShipRecord } from '../../models/ship-record';
-import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
 
 import * as moment from 'moment';
 
@@ -30,12 +30,17 @@ export class RecordDialogComponent implements OnInit {
     this.form = this.fb.group({
       recForms: this.fb
         .array(this.records
-          .map(r => this.getRecForForm(r)))
+          .map(r => this.getRecForForm(r))),
+        disabled: this.data.disabled
     });
   }
 
   get recForms(): FormArray {
     return this.form.get('recForms') as FormArray;
+  }
+
+  get disabled(): FormControl {
+    return this.form.get('disabled') as FormControl;
   }
 
   getRecForForm(rec: ShipRecord) {
@@ -48,7 +53,7 @@ export class RecordDialogComponent implements OnInit {
   addTruck(truckNumber: string) {
     const newTruckRec: ShipRecord = {
       truckNumber,
-      dispatchDate: moment().toDate()
+      dispatchDate: moment(this.date).hour(this.hour).startOf('hour').toDate()
     };
 
     this.recForms.push(this.getRecForForm(newTruckRec));
@@ -64,7 +69,16 @@ export class RecordDialogComponent implements OnInit {
 
   submit() {
     if (this.form.valid) {
-      this.dialogRef.close(this.form.value);
+      const value = this.form.value;
+
+      const objToReturn = {
+        records: value.recForms,
+        date: this.date,
+        hour: this.hour,
+        disabled: value.disabled
+      };
+
+      this.dialogRef.close(objToReturn);
     } else {
       this.recForms.controls.forEach(c => c.markAsDirty());
     }

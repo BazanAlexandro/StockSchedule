@@ -5,6 +5,10 @@ $border-color: rgba(#ccc, 0.8);
         input {
             margin-right: 15px;
         }
+
+        > * {
+            margin-bottom: 15px;
+        }
     }
 
     footer {

@@ -6,6 +6,7 @@ import { CalendarModule } from 'angular-calendar';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { AppComponent } from './app.component';
 import { DayScheduleComponent } from './components/day-schedule/day-schedule.component';
@@ -28,7 +29,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     CalendarModule.forRoot(),
     MatChipsModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCheckboxModule
   ],
   providers: [],
   entryComponents: [RecordDialogComponent],

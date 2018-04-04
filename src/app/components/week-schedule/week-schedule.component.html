@@ -18,7 +18,8 @@
       </div>
       <div *ngFor="let hour of hourSegments"
         (click)="handleSegmentClick(day, hour)"
-        class="weekday-hour cell">
+        class="weekday-hour cell"
+        [class.disabled]="isSegmentDisabled(day, hour)">
         
         <mat-chip-list>
           <mat-chip *ngFor="let rec of getShipRecsForSegment(day, hour)" 

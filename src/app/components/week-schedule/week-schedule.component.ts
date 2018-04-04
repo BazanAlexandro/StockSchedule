@@ -3,6 +3,7 @@ import * as moment from 'moment';
 import { ShipRecord } from '../../models/ship-record';
 import { MatDialog } from '@angular/material/dialog';
 import { RecordDialogComponent } from '../record-dialog/record-dialog.component';
+import { CalendarSegment } from '../../models/calendar-segment';
 
 @Component({
   selector: 'app-week-schedule',
@@ -18,14 +19,36 @@ export class WeekScheduleComponent implements OnInit {
       data: { 
         records: this.getShipRecsForSegment(date, hour), 
         date,
-        hour
+        hour,
+        disabled: this.isSegmentDisabled(date, hour)
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      // this.animal = result;
+      if (result) {
+        this.processModalResult(result);
+      }
     });
+  }
+
+  processModalResult({
+    records,
+    date,
+    hour,
+    disabled
+  }) {
+    const segmentDate = moment(date).hour(hour).startOf('hour').toDate();
+
+    this.shipRecords = this.shipRecords.filter(r => r.dispatchDate.getTime() !== segmentDate.getTime());
+
+    if (disabled) {
+      this.disabledSegments.push({
+        day: date,
+        hour
+      });
+    } else {
+      this.shipRecords = [...this.shipRecords, ...records];
+    }
   }
 
   // setter, set week and year
@@ -35,6 +58,17 @@ export class WeekScheduleComponent implements OnInit {
 
   shipRecords: ShipRecord[] = this.getStubForShipRecords();
 
+  disabledSegments: CalendarSegment[] = this.getStubForDisabledSegments();
+
+  getStubForDisabledSegments(): CalendarSegment[] {
+    return [
+      {
+        day: moment().startOf('day').toDate(),
+        hour: 16
+      }
+    ]
+  }
+
   getStubForShipRecords(): ShipRecord[] {
     return [
       {
@@ -42,6 +76,18 @@ export class WeekScheduleComponent implements OnInit {
         dispatchDate: moment('2018-04-04 11:00').toDate()
       }
     ]
+  }
+
+  // getDataForSegment(date: Date, hour: number) {
+  //   return {
+  //     records: this.getShipRecsForSegment(date, hour),
+  //     disabled: this.isSegmentDisabled({ day: date, hour })
+  //   };
+  // }
+
+  isSegmentDisabled(day, hour): boolean {
+    return this.disabledSegments.some(d => d.day.getTime() === day.getTime() &&
+      d.hour === hour);
   }
 
   getShipRecsForSegment(date: Date, hour: number): ShipRecord[] {
