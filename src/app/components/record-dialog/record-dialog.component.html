@@ -1,8 +1,8 @@
 <form [formGroup]="form" (ngSubmit)="submit()">
-  <ul formArrayName="recForms" [hidden]="disabled.value">
-      <li *ngFor="let rec of recForms.controls; let i=index" [formGroupName]="i"
+  <ul formArrayName="trucks" [hidden]="disabled.value">
+      <li *ngFor="let rec of trucks.controls; let i=index" [formGroupName]="i"
         class="record-form-item">
-          <input type="text" [disabled]="disabled.value" formControlName="truckNumber" />
+          <input type="text" [disabled]="disabled.value" formControlName="number" />
 
           <button (click)="removeTruck(i)"
             type="button" mat-raised-button

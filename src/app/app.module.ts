@@ -20,6 +20,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { StoreService } from './store.service';
 import { ViewModeToggleComponent } from './components/view-mode-toggle/view-mode-toggle.component';
+import { UtilsService } from './utils.service';
+import { StubService } from './stub.service';
 
 
 @NgModule({
@@ -47,7 +49,11 @@ import { ViewModeToggleComponent } from './components/view-mode-toggle/view-mode
     MatListModule,
     MatButtonToggleModule
   ],
-  providers: [StoreService],
+  providers: [
+    StoreService,
+    UtilsService,
+    StubService
+  ],
   entryComponents: [RecordDialogComponent],
   bootstrap: [AppComponent]
 })

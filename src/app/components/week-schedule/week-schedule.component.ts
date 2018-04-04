@@ -5,6 +5,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { RecordDialogComponent } from '../record-dialog/record-dialog.component';
 import { CalendarSegment } from '../../models/calendar-segment';
 import { StoreService } from '../../store.service';
+import { ScheduleUnit } from '../../models/schedule-unit';
+import { UtilsService } from '../../utils.service';
+import { StubService } from '../../stub.service';
 
 @Component({
   selector: 'app-week-schedule',
@@ -12,17 +15,31 @@ import { StoreService } from '../../store.service';
   styleUrls: ['./week-schedule.component.scss']
 })
 export class WeekScheduleComponent implements OnInit {
-  constructor(public dialog: MatDialog,
-    public store: StoreService) { }
+  week = moment().week();
+  year = moment().year();
 
-  openDialog(date: Date, hour: number): void {
+  units: ScheduleUnit[] = this.stub.getUnits();
+  calendarCells: ScheduleUnit[][];
+
+  weekDays = [];
+  
+  hourSegmentData = {
+    start: 8,
+    end: 20
+  }
+
+  hourSegments = this.getSegments();
+  
+  constructor(public store: StoreService,
+    public utils: UtilsService,
+    public stub: StubService,
+    public dialog: MatDialog) { }
+
+  openDialog(unit): void {
     const dialogRef = this.dialog.open(RecordDialogComponent, {
       width: '450px',
       data: {
-        records: this.getShipRecsForSegment(date, hour),
-        date,
-        hour,
-        disabled: this.isSegmentDisabled(date, hour)
+        unit
       }
     });
 
@@ -33,76 +50,13 @@ export class WeekScheduleComponent implements OnInit {
     });
   }
 
-  processModalResult({
-    records,
-    date,
-    hour,
-    disabled
-  }) {
-    const segmentDate = moment(date).hour(hour).startOf('hour').toDate();
+  processModalResult(unit: ScheduleUnit) {
+      const others = this.units
+        .filter(u => !this.utils.areDatesEqual(u.date, unit.date));
 
-    this.shipRecords = this.shipRecords.filter(r => r.dispatchDate.getTime() !== segmentDate.getTime());
-
-    if (disabled) {
-      this.disabledSegments.push({
-        day: date,
-        hour
-      });
-    } else {
-      this.disabledSegments = this.disabledSegments.filter(s => s.day.getTime() !== date.getTime() ||
-        s.hour !== hour);
-
-      this.shipRecords = [...this.shipRecords, ...records];
-    }
+      this.units = [...others, unit];
+      this.updateUI();
   }
-
-  get shipRecords(): ShipRecord[] {
-    return this.store.shipRecords;
-  }
-
-  set shipRecords(value: ShipRecord[]) {
-    console.log('setting ship records', value);
-    this.store.shipRecords = value;
-  }
-
-  disabledSegments: CalendarSegment[] = this.getStubForDisabledSegments();
-
-  getStubForDisabledSegments(): CalendarSegment[] {
-    return [
-      {
-          day: moment().startOf('day').toDate(),
-          hour: 16
-      }];
-  };
-
-  isSegmentDisabled(day, hour): boolean {
-    return this.disabledSegments.some(d => d.day.getTime() === day.getTime() &&
-      d.hour === hour);
-  }
-
-  getShipRecsForSegment(date: Date, hour: number): ShipRecord[] {
-    return this.shipRecords.filter(r => {
-      const shipDay = moment(r.dispatchDate).startOf('day').toDate();
-
-      const shipHour = r.dispatchDate.getHours();
-
-      return date.getTime() === shipDay.getTime() && hour == shipHour;
-    });
-  }
-
-  // CARRY OUT IT!!!
-  
-  week = moment().week();
-  year = moment().year();
-
-  weekDays = [];
-
-  hourSegmentData = {
-    start: 8,
-    end: 20
-  }
-
-  hourSegments = this.getSegments();
 
   getDaysForWeekNumber() {
     return moment.weekdays()
@@ -112,6 +66,18 @@ export class WeekScheduleComponent implements OnInit {
             .week(this.week).startOf('day')
             .toDate();
       });
+  }
+
+  unitFor(day: Date, hour: number): ScheduleUnit {
+    const checkedDate = this.utils.combine(day, hour);
+
+    return this.units.find(u =>
+        this.utils.areDatesEqual(u.date, checkedDate)) || 
+        new ScheduleUnit(checkedDate);
+  }
+
+  unitsForDay(day: Date): ScheduleUnit[] {
+    return this.hourSegments.map(h => this.unitFor(day, h));
   }
 
   getSegments() {
@@ -135,12 +101,14 @@ export class WeekScheduleComponent implements OnInit {
     this.updateUI();
   }
 
-  handleSegmentClick(day: Date, hour: number) {
-    this.openDialog(day, hour);
+  handleUnitClick(unit: ScheduleUnit) {
+    this.openDialog(unit);
   }
 
   updateUI() {
     this.weekDays = this.getDaysForWeekNumber();
+    this.calendarCells = this.weekDays
+      .map(w => this.unitsForDay(w));
   }
 
   ngOnInit() {

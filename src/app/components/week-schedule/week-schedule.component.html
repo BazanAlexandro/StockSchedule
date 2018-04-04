@@ -19,22 +19,28 @@
     </div>
   </aside>
   <div class="body">
-    <div *ngFor="let day of weekDays"
+    <div *ngFor="let day of weekDays; let i = index"
       class="column">
       <div class="weekday cell">
         {{ day | date: 'EEE d' }}
       </div>
-      <div *ngFor="let hour of hourSegments"
-        (click)="handleSegmentClick(day, hour)"
+      <div *ngFor="let unit of calendarCells[i]"
+        (click)="handleUnitClick(unit)"
         class="weekday-hour cell"
-        [class.disabled]="isSegmentDisabled(day, hour)">
+        [class.disabled]="unit.disabled">
 
-        <mat-chip-list>
-          <mat-chip *ngFor="let rec of getShipRecsForSegment(day, hour)" 
-            color="primary" selected="true">
-            {{ rec.truckNumber }}
-          </mat-chip>
-        </mat-chip-list>
+        <ng-container *ngIf="!unit.disabled; else disabledTemp">
+          <mat-chip-list>
+            <mat-chip *ngFor="let rec of unit.trucks" 
+              color="primary" selected="true">
+              {{ rec }}
+            </mat-chip>
+          </mat-chip-list>
+        </ng-container>
+
+        <ng-template #disabledTemp>
+          disabled
+        </ng-template>
       </div>
     </div>
   </div>
