@@ -1,4 +1,4 @@
 <app-view-mode-toggle [(mode)]="mode"></app-view-mode-toggle>
 
-<app-week-schedule *ngIf="isWeekMode"></app-week-schedule>
-<app-day-schedule *ngIf="isDayMode"></app-day-schedule>
+<app-week-schedule *ngIf="mode === SchedulerMode.Week"></app-week-schedule>
+<app-day-schedule *ngIf="mode === SchedulerMode.Day"></app-day-schedule>
