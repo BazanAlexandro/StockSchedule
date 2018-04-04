@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ShipRecord } from '../../models/ship-record';
 import { CalendarSegment } from '../../models/calendar-segment';
+import { StoreService } from '../../store.service';
 
 @Component({
   selector: 'app-day-schedule',
@@ -8,18 +9,14 @@ import { CalendarSegment } from '../../models/calendar-segment';
   styleUrls: ['./day-schedule.component.scss']
 })
 export class DayScheduleComponent implements OnInit {
-  @Input() shipRecords: ShipRecord[] = [];
-  @Input() disabledSegments: CalendarSegment[] = [];
-
   selectedDate: Date;
 
   get records() {
-    return [
-
-    ];
+    console.log('recs', this.store.shipRecords);
+    return this.store.shipRecords;
   }
 
-  constructor() { }
+  constructor(public store: StoreService) { }
 
   ngOnInit() {
   }

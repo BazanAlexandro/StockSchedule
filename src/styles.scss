@@ -32,3 +32,13 @@ ul {
 app-week-schedule .calendar .mat-chip {
     padding: 3px 9px;
 }
+
+.calendar-nav {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+
+    > *:not(:last-child) {
+        margin-right: 10px;
+    }
+}

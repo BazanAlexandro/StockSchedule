@@ -1,6 +1,14 @@
-<nav>
-  <button (click)="prevWeek()"><<<</button>
-  <button (click)="nextWeek()">>>></button>
+<nav class="calendar-nav">
+  <button mat-raised-button
+    color="primary"
+    (click)="prevWeek()">
+    <img src="/assets/ic_arrow_back_white_24px.svg" />
+  </button>
+  <button mat-raised-button
+    color="primary"
+    (click)="nextWeek()">
+    <img src="/assets/ic_arrow_forward_white_24px.svg" />
+  </button>
 </nav>
 
 <div class="calendar">
@@ -20,7 +28,7 @@
         (click)="handleSegmentClick(day, hour)"
         class="weekday-hour cell"
         [class.disabled]="isSegmentDisabled(day, hour)">
-        
+
         <mat-chip-list>
           <mat-chip *ngFor="let rec of getShipRecsForSegment(day, hour)" 
             color="primary" selected="true">

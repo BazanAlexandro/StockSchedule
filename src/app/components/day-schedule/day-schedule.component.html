@@ -1,10 +1,21 @@
 <input [(ngModel)]="selectedDate" type="hidden" [matDatepicker]="picker" placeholder="Choose a date">
-<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+Show calendar: <mat-datepicker-toggle [for]="picker">
+  <button mat-raised-button
+    color="primary">
+    Calendar
+  </button>
+</mat-datepicker-toggle>
 <mat-datepicker #picker [touchUi]="true" [opened]="true"></mat-datepicker>
 
 {{ selectedDate | date }}
 
-<mat-list *ngIf="selectedDate">
-  <mat-list-item>Item 1</mat-list-item>
-  <mat-divider></mat-divider>
-</mat-list>
+<ng-container *ngIf="selectedDate">
+  <mat-list>
+    <ng-container *ngFor="let record of records">
+      <mat-list-item>
+        {{ record.truckNumber }} dispatching on {{ record.dispatchDate | date }}
+      </mat-list-item>
+      <mat-divider></mat-divider>
+    </ng-container>
+  </mat-list>
+</ng-container>

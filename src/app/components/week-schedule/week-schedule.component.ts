@@ -16,10 +16,10 @@ export class WeekScheduleComponent implements OnInit {
     public store: StoreService) { }
 
   openDialog(date: Date, hour: number): void {
-    let dialogRef = this.dialog.open(RecordDialogComponent, {
+    const dialogRef = this.dialog.open(RecordDialogComponent, {
       width: '450px',
-      data: { 
-        records: this.getShipRecsForSegment(date, hour), 
+      data: {
+        records: this.getShipRecsForSegment(date, hour),
         date,
         hour,
         disabled: this.isSegmentDisabled(date, hour)
@@ -49,29 +49,30 @@ export class WeekScheduleComponent implements OnInit {
         hour
       });
     } else {
-      // this.disabledSegments = this.disabledSegments.filter(s => s.day.getTime() !== segmentDate.getTime() ||
-      //   s.hour !== hour);
-      
+      this.disabledSegments = this.disabledSegments.filter(s => s.day.getTime() !== date.getTime() ||
+        s.hour !== hour);
+
       this.shipRecords = [...this.shipRecords, ...records];
     }
   }
 
   get shipRecords(): ShipRecord[] {
     return this.store.shipRecords;
-  };
+  }
 
   set shipRecords(value: ShipRecord[]) {
+    console.log('setting ship records', value);
     this.store.shipRecords = value;
   }
 
-  disabledSegments: CalendarSegment[] = this.getStubForDisabledSegments();  
+  disabledSegments: CalendarSegment[] = this.getStubForDisabledSegments();
 
   getStubForDisabledSegments(): CalendarSegment[] {
     return [
-    {
-        day: moment().startOf('day').toDate(),
-        hour: 16
-    }]
+      {
+          day: moment().startOf('day').toDate(),
+          hour: 16
+      }];
   };
 
   isSegmentDisabled(day, hour): boolean {
