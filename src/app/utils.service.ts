@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 
 import * as moment from 'moment';
+import { FormArray } from "@angular/forms";
 
 @Injectable()
 export class UtilsService {
@@ -15,5 +16,11 @@ export class UtilsService {
 
     getDayFrom(date: Date) {
         return moment(date).startOf('day').toDate();
+    }
+
+    clearFormArray(array: FormArray) {
+        while (array.length) {
+          array.removeAt(0);
+        }
     }
 }

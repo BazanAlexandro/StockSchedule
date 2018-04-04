@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@ang
 
 import * as moment from 'moment';
 import { ScheduleUnit } from '../../models/schedule-unit';
+import { UtilsService } from '../../utils.service';
 
 @Component({
   selector: 'app-record-dialog',
@@ -17,6 +18,7 @@ export class RecordDialogComponent implements OnInit {
 
   constructor(private dialogRef: MatDialogRef<RecordDialogComponent>,
     @Inject(MAT_DIALOG_DATA) private data,
+    private utils: UtilsService,
     private fb: FormBuilder) { 
       this.createForm();
     }
@@ -32,6 +34,12 @@ export class RecordDialogComponent implements OnInit {
     this.form = this.fb.group({
       trucks: this.fb.array(truckGroups),
       disabled: this.data.disabled
+    });
+
+    this.disabled.valueChanges.subscribe(value => {
+      if (value) {
+          this.utils.clearFormArray(this.trucks);
+      }
     });
   }
 
@@ -65,11 +73,16 @@ export class RecordDialogComponent implements OnInit {
 
   mapFormToUnit(form: FormGroup): ScheduleUnit {
     const formValue = this.form.value;
+    let trucks = [];
+
+    if (!formValue.disabled) {
+      trucks = formValue.trucks.map(t => t.number);
+    }
 
     return {
       date: this.unit.date,
       disabled: formValue.disabled,
-      trucks: formValue.trucks.map(t => t.number)
+      trucks
     }
   }
 
