@@ -7,12 +7,14 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 import { AppComponent } from './app.component';
 import { DayScheduleComponent } from './components/day-schedule/day-schedule.component';
 import { WeekScheduleComponent } from './components/week-schedule/week-schedule.component';
 import { RecordDialogComponent } from './components/record-dialog/record-dialog.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatChipsModule,
     MatDialogModule,
     MatButtonModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [],
   entryComponents: [RecordDialogComponent],
